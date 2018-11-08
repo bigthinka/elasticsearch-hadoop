@@ -202,14 +202,14 @@ public class PigValueWriter extends FilteringValueWriter<PigTuple> {
 
         // empty tuple shortcut
         if (isEmpty) {
-            if (!isRoot) {
+            if (!isRoot && !writeAsObject) {
                 generator.writeBeginArray();
             }
             if (writeAsObject) {
                 generator.writeBeginObject();
                 generator.writeEndObject();
             }
-            if (!isRoot) {
+            if (!isRoot && !writeAsObject) {
                 generator.writeEndArray();
             }
             return result;
@@ -220,7 +220,7 @@ public class PigValueWriter extends FilteringValueWriter<PigTuple> {
         // use getAll instead of get(int) to avoid having to handle Exception...
         List<Object> tuples = ((Tuple) object).getAll();
 
-        if (!isRoot) {
+        if (!isRoot && !writeAsObject) {
             generator.writeBeginArray();
         }
 
@@ -243,7 +243,7 @@ public class PigValueWriter extends FilteringValueWriter<PigTuple> {
         if (writeAsObject) {
             generator.writeEndObject();
         }
-        if (!isRoot) {
+        if (!isRoot && !writeAsObject) {
             generator.writeEndArray();
         }
 
